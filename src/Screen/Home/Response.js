@@ -112,7 +112,9 @@ function Response({route, navigation}) {
           <View style={[styles.result, {marginBottom: 5}]} key={i + 1}>
             <View style={[styles.redbox, {width: '29%'}]}>
               <Image
-                source={{uri: c.image}}
+                source={{
+                  uri: 'https://4.imimg.com/data4/OG/RH/MY-26663927/vestige-agri-82-500x500.png',
+                }}
                 style={{width: 50, height: 40, borderRadius: 4}}
               />
             </View>
@@ -156,7 +158,7 @@ const styles = StyleSheet.create({
   },
   secondContainer: {
     width: '100%',
-    marginTop: 20,
+    marginTop: 0,
     display: 'flex',
     flexDirection: 'row',
     paddingHorizontal: 8,

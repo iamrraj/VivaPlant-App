@@ -260,7 +260,7 @@ export class Home extends Component {
                       <Text style={styles.btnText}>
                         {' '}
                         <Feather name="send" color="white" size={14} /> &nbsp;
-                        {this.state.preview ? 'Sending ...' : 'Submit Image'}
+                        {this.state.preview ? 'Sending ...' : 'Analize Image'}
                       </Text>
                     </TouchableOpacity>
                   </LinearGradient>
