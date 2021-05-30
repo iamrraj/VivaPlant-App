@@ -113,7 +113,7 @@ function Response({route, navigation}) {
             <View style={[styles.redbox, {width: '29%'}]}>
               <Image
                 source={{
-                  uri: 'https://4.imimg.com/data4/OG/RH/MY-26663927/vestige-agri-82-500x500.png',
+                  uri: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRIX9C9wNAx4u5hBrMBKXOLGv2y5rjJtUf8nOh9PH7TC4hA3i8kiCR5uOwhmcDLAdqxcCo&usqp=CAU',
                 }}
                 style={{width: 50, height: 40, borderRadius: 4}}
               />
