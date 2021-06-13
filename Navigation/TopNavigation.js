@@ -4,6 +4,7 @@ import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs
 
 import Home from '../src/Screen/Home/Home';
 import Field from '../src/Screen/Home/Field';
+import Login from '../src/Screen/Auth/Login';
 
 const Tab = createMaterialTopTabNavigator();
 function TopNavigation() {
@@ -38,6 +39,7 @@ function TopNavigation() {
           }}>
           <Tab.Screen name="Home" component={Home} />
           <Tab.Screen name="Field" component={Field} />
+          <Tab.Screen name="Login" component={Login} />
         </Tab.Navigator>
       </View>
     </>

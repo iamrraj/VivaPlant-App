@@ -21,7 +21,7 @@ function Main({navigation}) {
           animation="bounceIn"
           duraton="1500"
           source={require('../../../assets/Image/Logo.png')}
-          style={[styles.logo, {height: 100, width: 100}]}
+          style={[styles.logo, {height: 70, width: 200}]}
           resizeMode="stretch"
         />
       </View>
@@ -44,7 +44,7 @@ function Main({navigation}) {
         </Text>
         <Text style={styles.text}></Text>
         <View style={styles.button}>
-          <TouchableOpacity onPress={() => navigation.navigate('Home')}>
+          <TouchableOpacity onPress={() => navigation.navigate('Login')}>
             <LinearGradient
               colors={['#00F5B5', '#00FFBC']}
               style={styles.signIn}>
@@ -66,7 +66,7 @@ const height_logo = height * 0.28;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#6FA83F',
+    backgroundColor: 'white',
   },
   header: {
     flex: 2,

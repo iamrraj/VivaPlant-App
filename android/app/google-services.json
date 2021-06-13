@@ -1,0 +1,98 @@
+{
+  "project_info": {
+    "project_number": "124571701124",
+    "firebase_url": "https://digital-fleet.firebaseio.com",
+    "project_id": "digital-fleet",
+    "storage_bucket": "digital-fleet.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:124571701124:android:f85b2311136121fd59d7d1",
+        "android_client_info": {
+          "package_name": "com.hack"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "124571701124-dlisglvrug9ruh7kv3ihc2tda7n8jec7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCt9ijjYj3jmntkbvuj6smOdaRyum_ONoc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "124571701124-dlisglvrug9ruh7kv3ihc2tda7n8jec7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:124571701124:android:5af0231ae840f13c59d7d1",
+        "android_client_info": {
+          "package_name": "pl.digitalfleet"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "124571701124-dlisglvrug9ruh7kv3ihc2tda7n8jec7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCt9ijjYj3jmntkbvuj6smOdaRyum_ONoc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "124571701124-dlisglvrug9ruh7kv3ihc2tda7n8jec7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:124571701124:android:d7b9ec4b02cfff3159d7d1",
+        "android_client_info": {
+          "package_name": "pl.lafarge.ivms"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "124571701124-dlisglvrug9ruh7kv3ihc2tda7n8jec7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCt9ijjYj3jmntkbvuj6smOdaRyum_ONoc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "124571701124-dlisglvrug9ruh7kv3ihc2tda7n8jec7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -12,6 +12,8 @@ import {
 import LinearGradient from 'react-native-linear-gradient';
 import Feather from 'react-native-vector-icons/FontAwesome';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import styles from '../Style/Style';
+
 function Response({route, navigation}) {
   const {name, image, result} = route.params;
   const [switchValue, setSwitchValue] = useState(true);
@@ -147,101 +149,3 @@ function Response({route, navigation}) {
 }
 
 export default Response;
-const styles = StyleSheet.create({
-  mainContainer: {
-    flex: 1,
-    backgroundColor: 'white',
-  },
-  switch: {
-    borderColor: 'red',
-    borderWidth: 1,
-  },
-  secondContainer: {
-    width: '100%',
-    marginTop: 0,
-    display: 'flex',
-    flexDirection: 'row',
-    paddingHorizontal: 8,
-    paddingVertical: 8,
-    justifyContent: 'center',
-  },
-  result1: {
-    justifyContent: 'center',
-    flexDirection: 'row',
-    width: '80%',
-    paddingLeft: 23,
-    paddingTop: 40,
-    justifyContent: 'space-between',
-  },
-  result: {
-    justifyContent: 'center',
-    flexDirection: 'row',
-    width: '80%',
-    paddingLeft: 23,
-    paddingTop: 10,
-    justifyContent: 'space-between',
-  },
-  recommend: {
-    justifyContent: 'center',
-
-    width: '95%',
-    paddingLeft: 23,
-    paddingTop: 50,
-  },
-
-  images: {
-    width: '95%',
-    height: 250,
-    borderColor: '#00FFBC',
-    borderWidth: 2,
-    borderRadius: 4,
-    marginHorizontal: 3,
-  },
-  textSextion: {
-    paddingLeft: 20,
-    width: 190,
-    marginTop: 20,
-  },
-  textIndentificauon: {
-    fontSize: 17,
-    marginTop: 5,
-    color: '#4A4A4A',
-    fontWeight: '700',
-  },
-  switchEnableBorder: {
-    borderColor: '#6fa6d3',
-    borderWidth: 1,
-  },
-
-  switchDisableBorder: {
-    borderColor: '#f2f2f2',
-    borderWidth: 1,
-  },
-  Title: {
-    textTransform: 'uppercase',
-    color: '#757575',
-    fontSize: 13,
-    fontFamily: 'Oswald',
-  },
-  btnSection: {
-    width: '95%',
-    height: 40,
-
-    justifyContent: 'center',
-    borderRadius: 3,
-  },
-  btnBuy: {
-    width: 80,
-    height: 35,
-    borderWidth: 1,
-    borderColor: '#00F5B5',
-    justifyContent: 'center',
-    borderRadius: 3,
-  },
-  btnText: {
-    textAlign: 'center',
-    color: 'white',
-    fontSize: 14,
-    fontWeight: 'bold',
-  },
-});
