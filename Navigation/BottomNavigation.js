@@ -1,7 +1,7 @@
 import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {Dimensions} from 'react-native';
-import Home from '../src/Screen/Home/Home';
+import Start from '../src/Screen/Start/Start';
 import Driver from '../src/Screen/Driver/Driver';
 import Score from '../src/Screen/Score/Score';
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -16,8 +16,6 @@ const BottomNavigation = () => {
       tabBarOptions={{
         showLabel: false,
         inactiveTintColor: '#00A870',
-        //activeBackgroundColor: '#c4461c',
-        // inactiveBackgroundColor: 'white',
         backgroundColor: 'white',
         activeTintColor: '#00A870',
         labelStyle: {
@@ -41,10 +39,10 @@ const BottomNavigation = () => {
         },
       }}>
       <Tab.Screen
-        name="Home"
-        component={Home}
+        name="Start"
+        component={Start}
         options={{
-          tabBarLabel: 'Home',
+          tabBarLabel: 'Start',
           tabBarIcon: ({focused}) => (
             <MaterialCommunityIcons
               name={focused ? 'steering' : 'steering-off'}
@@ -56,7 +54,7 @@ const BottomNavigation = () => {
         listeners={({navigation, route}) => ({
           tabPress: e => {
             e.preventDefault();
-            navigation.navigate('Home');
+            navigation.navigate('Start');
           },
         })}
       />

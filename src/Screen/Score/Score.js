@@ -22,7 +22,6 @@ import LinearGradient from 'react-native-linear-gradient';
 import Spinner from '../../Service/Spinner/Spinner';
 import {getScore} from '../../Service/Score/Score';
 import Speedometer from 'react-native-speedometer-chart';
-
 const Score = () => {
   const [selectedValue, setSelectedValue] = useState('');
   const [month, setMonth] = useState([]);
@@ -93,7 +92,7 @@ const Score = () => {
   return (
     <>
       <Top
-        color={'#00A870'}
+        color={'#01875A'}
         color1={'white'}
         imageUri={require('../../../assets/Image/Logo1.png')}
       />
@@ -105,7 +104,9 @@ const Score = () => {
           refreshControl={
             <RefreshControl refreshing={loading} onRefresh={_onRefresh} />
           }>
-          <View style={styles.scoreContainer}>
+          <LinearGradient
+            colors={['#01875A', '#00C684']}
+            style={styles.scoreContainer}>
             <View style={styles.overall}>
               <Text style={styles.overallText}>Overall score</Text>
             </View>
@@ -175,7 +176,7 @@ const Score = () => {
                 </Text>
               </View>
             </View>
-          </View>
+          </LinearGradient>
           <View style={styles.ChartConatainer}>
             <View style={styles.card}>
               <PickerList

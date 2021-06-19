@@ -7,4 +7,9 @@
         <item name="android:colorControlNormal">#00A870</item>
     </style>
 
+    <style name="AlertDialogTheme" parent="Theme.AppCompat.Dialog.Alert">
+        <item name="android:colorPrimary">#00A870</item>
+        <item name="android:colorAccent">#00A870</item>
+    </style>
+
 </resources>

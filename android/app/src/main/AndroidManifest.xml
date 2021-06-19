@@ -7,6 +7,16 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.RECORD_AUDIO"/>
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_SERVICE"/>
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
+    <uses-permission android:name="com.google.android.gms.permission.ACTIVITY_RECOGNITION" />
+
+      <!-- Define ACCESS_FINE_LOCATION if you will use enableHighAccuracy=true  -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
  
     <application
       android:name=".MainApplication"
@@ -15,6 +25,10 @@
       android:roundIcon="@mipmap/ic_launcher_round"
       android:allowBackup="false"
       android:theme="@style/AppTheme">
+
+       <meta-data
+        android:name="com.google.android.geo.API_KEY"
+        android:value="AIzaSyAU83KYLHdWER3gK6YWuGAo2ozf_5kBQWo"/>
       <activity
         android:name=".MainActivity"
         android:label="@string/app_name"
@@ -26,5 +40,11 @@
             <category android:name="android.intent.category.LAUNCHER" />
         </intent-filter>
       </activity>
+
+      <activity android:name="com.facebook.react.devsupport.DevSettingsActivity" />
+      <service
+        android:name="com.voximplant.foregroundservice.VIForegroundService"
+        android:exported="false">
+      </service>
     </application>
 </manifest>

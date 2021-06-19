@@ -7,7 +7,7 @@ export default StyleSheet.create({
   },
   scoreContainer: {
     height: 330,
-    backgroundColor: '#00A870',
+
     borderBottomLeftRadius: 60,
     borderBottomRightRadius: 60,
     shadowColor: '#000',

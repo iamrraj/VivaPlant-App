@@ -166,16 +166,17 @@ const Login = ({navigation}) => {
                 secureTextEntry={secureTextEntry ? true : false}
                 onChangeText={evt => setpassword(evt)}
               />
+              <TouchableOpacity
+                onPress={() => updateSecureTextEntry()}
+                style={styles.openClose}>
+                {secureTextEntry ? (
+                  <Feather name="eye-off" color="#39324C" size={20} />
+                ) : (
+                  <Feather name="eye" color="#39324C" size={20} />
+                )}
+              </TouchableOpacity>
             </View>
-            <View
-              onPress={() => updateSecureTextEntry()}
-              style={styles.openClose}>
-              {secureTextEntry ? (
-                <Feather name="eye-off" color="#39324C" size={20} />
-              ) : (
-                <Feather name="eye" color="#39324C" size={20} />
-              )}
-            </View>
+
             <TouchableOpacity
               style={styles.Forget}
               onPress={() => navigation.navigate('Forget')}>
