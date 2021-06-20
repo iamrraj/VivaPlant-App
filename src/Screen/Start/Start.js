@@ -18,6 +18,7 @@ import VIForegroundService from '@voximplant/react-native-foreground-service';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 import moment from 'moment';
+import {disatanceFormule} from './Distance';
 //usage
 import appConfig from '../../../app.json';
 var testUUID = uuid.v1();
@@ -123,42 +124,6 @@ const Start = () => {
     return false;
   };
 
-  // useEffect(() => {
-  //   getLocation();
-  // }, []);
-  // const getLocation = async () => {
-  //   const hasPermission = await hasLocationPermission();
-
-  //   if (!hasPermission) {
-  //     return;
-  //   }
-  //   setloading(true);
-  //   Geolocation.getCurrentPosition(
-  //     position => {
-  //       setLocation(position);
-
-  //       setloading(false);
-  //     },
-  //     error => {
-  //       Alert.alert(`Code ${error.code}`, error.message);
-  //       setLocation(null);
-  //       console.log(error);
-  //     },
-  //     {
-  //       accuracy: {
-  //         android: 'high',
-  //         ios: 'best',
-  //       },
-  //       enableHighAccuracy: highAccuracy,
-  //       timeout: 15000,
-  //       maximumAge: 10000,
-  //       distanceFilter: 0,
-  //       forceRequestLocation: forceLocation,
-  //       showLocationDialog: locationDialog,
-  //     },
-  //   );
-  // };
-
   const getLocationUpdates = async () => {
     const hasPermission = await hasLocationPermission();
 
@@ -224,7 +189,7 @@ const Start = () => {
       userActivity: [
         {
           activityType: 'SESSION_RECORDING',
-          date: '2021-06-19 17:55:27.143+0200',
+          date: new Date().toLocaleString(),
           transitionType: 'EXIT',
         },
       ],
@@ -260,6 +225,15 @@ const Start = () => {
     }
   }, [stopForegroundService]);
 
+  var firstTime = gpsPosition[0];
+  var lastSecond = gpsPosition[gpsPosition.length - 1];
+  var startDate = firstTime && lastSecond ? moment(firstTime['timeUtc']) : '';
+  var endEnd = firstTime && lastSecond ? moment(lastSecond['timeUtc']) : '';
+  var duration =
+    firstTime && lastSecond ? moment.duration(endEnd.diff(startDate)) : 0;
+  var seconds = firstTime && lastSecond ? duration.seconds() : '00';
+  var TotoalTime = moment.utc(seconds * 1000).format('HH:mm:ss');
+
   const startForegroundService = async () => {
     if (Platform.Version >= 26) {
       await VIForegroundService.createNotificationChannel({
@@ -275,7 +249,7 @@ const Start = () => {
       channelId: 'locationChannel',
       id: 420,
       title: appConfig.displayName,
-      text: 'Tracking location updates',
+      text: `App i reconding ...`,
       icon: 'ic_launcher',
     });
   };
@@ -320,15 +294,9 @@ const Start = () => {
   function stopTimer() {
     setIsActive(false);
     setStart('stoptrip');
-    setCounter(0);
-    setSecond('00');
-    setMinute('00');
-    setHour('00');
-    // sendData();
   }
   const startService = () => {
     setIsActive(!isActive);
-
     getLocationUpdates();
   };
 
@@ -349,10 +317,8 @@ const Start = () => {
 
   const removeLocationUpdates1 = () => {
     removeLocationUpdates();
-
     stopTimer();
-
-    // sendData();
+    sendData();
   };
 
   const StopAlert = () =>
@@ -369,14 +335,6 @@ const Start = () => {
       ],
       {cancelable: false},
     );
-
-  var firstTime = gpsPosition[0];
-  var lastSecond = gpsPosition[gpsPosition.length - 1];
-  var startDate = firstTime && lastSecond ? moment(firstTime['timeUtc']) : '';
-  var endEnd = firstTime && lastSecond ? moment(lastSecond['timeUtc']) : '';
-  var duration =
-    firstTime && lastSecond ? moment.duration(endEnd.diff(startDate)) : 0;
-  var seconds = firstTime && lastSecond ? duration.seconds() : '00';
 
   return (
     <>
@@ -400,16 +358,15 @@ const Start = () => {
 
                 <View style={styles.drivingSection}>
                   <Text style={styles.driving}>DRIVING TIME</Text>
-                  <Text style={styles.drivingTimefinish}>
-                    {/* {time} */}
-                    {moment.utc(seconds * 1000).format('HH:mm:ss')}
-                  </Text>
+                  <Text style={styles.drivingTimefinish}>{TotoalTime}</Text>
                 </View>
 
                 <View style={styles.distnceSection}>
                   <Text style={styles.driving}>DISTANCE (KM)</Text>
                   <Text style={styles.drivingTimefinish}>
-                    0.<Text style={styles.distanceTime}>000</Text>
+                    {Number.parseFloat(
+                      disatanceFormule(firstTime, lastSecond),
+                    ).toFixed(3)}
                   </Text>
 
                   <TouchableOpacity
@@ -449,9 +406,7 @@ const Start = () => {
               style={
                 start === 'start' ? styles.drivingTime : styles.drivingTimeStop
               }>
-              {/* 00:00:00 */}
-              {moment.utc(seconds * 1000).format('HH:mm:ss')}
-              {/* {hour}:{minute}:{second} */}
+              {start === 'start' ? '00:00:00' : TotoalTime}
             </Text>
           </View>
 
@@ -471,7 +426,11 @@ const Start = () => {
               style={
                 start === 'start' ? styles.drivingTime : styles.drivingTimeStop
               }>
-              0.<Text style={styles.distanceTime}>000</Text>
+              {start === 'start'
+                ? '0.000'
+                : Number.parseFloat(
+                    disatanceFormule(firstTime, lastSecond),
+                  ).toFixed(3)}
             </Text>
           </View>
         </View>

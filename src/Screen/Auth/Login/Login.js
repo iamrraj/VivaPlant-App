@@ -166,9 +166,7 @@ const Login = ({navigation}) => {
                 secureTextEntry={secureTextEntry ? true : false}
                 onChangeText={evt => setpassword(evt)}
               />
-              <TouchableOpacity
-                onPress={() => updateSecureTextEntry()}
-                style={styles.openClose}>
+              <TouchableOpacity onPress={() => updateSecureTextEntry()}>
                 {secureTextEntry ? (
                   <Feather name="eye-off" color="#39324C" size={20} />
                 ) : (
