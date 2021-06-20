@@ -17,7 +17,7 @@ import Geolocation from 'react-native-geolocation-service';
 import VIForegroundService from '@voximplant/react-native-foreground-service';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
-import {differenceInSeconds} from 'date-fns';
+import moment from 'moment';
 //usage
 import appConfig from '../../../app.json';
 var testUUID = uuid.v1();
@@ -34,6 +34,7 @@ const Start = () => {
   const [loading, setloading] = useState(false);
   const [number, setNumber] = useState(0);
   const [gpsPosition, setGpsPosition] = useState([]);
+  const [speed, setSpeed] = useState(0);
 
   const [forceLocation, setForceLocation] = useState(true);
   const [highAccuracy, setHighAccuracy] = useState(true);
@@ -171,12 +172,6 @@ const Start = () => {
       console.log('one');
     }
 
-    // {
-    //   "coords":
-    //   { "accuracy": 13.031000137329102, "altitude": 118.07911660861846, "heading": 23.411136627197266, "latitude": 52.24939, "longitude": 21.0387127, "speed": 0.7061119079589844 },
-    //   "mocked": false, "timestamp": 1624124844000
-    // }
-
     setObserving(true);
 
     watchId.current = Geolocation.watchPosition(
@@ -194,6 +189,7 @@ const Start = () => {
             timeUtc: position['timestamp'],
           },
         ]);
+        setSpeed(position.coords['speed']);
       },
       error => {
         setLocation(null);
@@ -207,7 +203,7 @@ const Start = () => {
         },
         enableHighAccuracy: highAccuracy,
         distanceFilter: 0,
-        interval: 5000,
+        interval: 2000,
         fastestInterval: 2000,
         forceRequestLocation: forceLocation,
         showLocationDialog: locationDialog,
@@ -332,7 +328,7 @@ const Start = () => {
   }
   const startService = () => {
     setIsActive(!isActive);
-    getDataTime();
+
     getLocationUpdates();
   };
 
@@ -374,6 +370,14 @@ const Start = () => {
       {cancelable: false},
     );
 
+  var firstTime = gpsPosition[0];
+  var lastSecond = gpsPosition[gpsPosition.length - 1];
+  var startDate = firstTime && lastSecond ? moment(firstTime['timeUtc']) : '';
+  var endEnd = firstTime && lastSecond ? moment(lastSecond['timeUtc']) : '';
+  var duration =
+    firstTime && lastSecond ? moment.duration(endEnd.diff(startDate)) : 0;
+  var seconds = firstTime && lastSecond ? duration.seconds() : '00';
+
   return (
     <>
       <Top
@@ -396,8 +400,12 @@ const Start = () => {
 
                 <View style={styles.drivingSection}>
                   <Text style={styles.driving}>DRIVING TIME</Text>
-                  <Text style={styles.drivingTimefinish}>{time}</Text>
+                  <Text style={styles.drivingTimefinish}>
+                    {/* {time} */}
+                    {moment.utc(seconds * 1000).format('HH:mm:ss')}
+                  </Text>
                 </View>
+
                 <View style={styles.distnceSection}>
                   <Text style={styles.driving}>DISTANCE (KM)</Text>
                   <Text style={styles.drivingTimefinish}>
@@ -442,9 +450,20 @@ const Start = () => {
                 start === 'start' ? styles.drivingTime : styles.drivingTimeStop
               }>
               {/* 00:00:00 */}
-              {hour}:{minute}:{second}
+              {moment.utc(seconds * 1000).format('HH:mm:ss')}
+              {/* {hour}:{minute}:{second} */}
             </Text>
           </View>
+
+          {/* <View style={styles.drivingSection}>
+            <Text style={[styles.driving, {marginTop: 10}]}>SPEED</Text>
+            <Text
+              style={
+                start === 'start' ? styles.drivingTime : styles.drivingTimeStop
+              }>
+              {speed.toFixed(1)} km/hr
+            </Text>
+          </View> */}
 
           <View style={styles.distnceSection}>
             <Text style={styles.driving}>DISTANCE (KM)</Text>
