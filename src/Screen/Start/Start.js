@@ -19,6 +19,8 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 import moment from 'moment';
 import {disatanceFormule} from './Distance';
+import BackgroundTimer from 'react-native-background-timer';
+
 //usage
 import appConfig from '../../../app.json';
 var testUUID = uuid.v1();
@@ -46,6 +48,7 @@ const Start = () => {
   const [location, setLocation] = useState(null);
 
   const watchId = useRef(null);
+  const interval = useRef(null);
 
   useEffect(() => {
     return () => {
@@ -133,8 +136,8 @@ const Start = () => {
 
     if (Platform.OS === 'android' && foregroundService) {
       await startForegroundService();
+      await BackgroundTimer.start();
       setGpsPosition([]);
-      console.log('one');
     }
 
     setObserving(true);
@@ -147,7 +150,9 @@ const Start = () => {
           ...prevState,
           {
             accuracy: position.coords['accuracy'],
-            date: new Date(position.timestamp).toLocaleString(),
+            date: moment(position.timestamp).format(
+              'YYYY-MM-DD HH:mm:ss.SSSZZ',
+            ), //new Date(position.timestamp).toLocaleString(),
             latitude: position.coords.latitude,
             longitude: position.coords.longitude,
             speed: position.coords['speed'],
@@ -175,6 +180,9 @@ const Start = () => {
         useSignificantChanges: significantChanges,
       },
     );
+
+    //Don't forget to remove Timer
+    //rest of code will be performing for iOS on background too
   };
 
   // console.log('Gps final Data', gpsPosition);
@@ -189,7 +197,7 @@ const Start = () => {
       userActivity: [
         {
           activityType: 'SESSION_RECORDING',
-          date: new Date().toLocaleString(),
+          date: moment().format('YYYY-MM-DD HH:mm:ss.SSSZZ'),
           transitionType: 'EXIT',
         },
       ],
@@ -227,12 +235,7 @@ const Start = () => {
 
   var firstTime = gpsPosition[0];
   var lastSecond = gpsPosition[gpsPosition.length - 1];
-  var startDate = firstTime && lastSecond ? moment(firstTime['timeUtc']) : '';
-  var endEnd = firstTime && lastSecond ? moment(lastSecond['timeUtc']) : '';
-  var duration =
-    firstTime && lastSecond ? moment.duration(endEnd.diff(startDate)) : 0;
-  var seconds = firstTime && lastSecond ? duration.seconds() : '00';
-  var TotoalTime = moment.utc(seconds * 1000).format('HH:mm:ss');
+  var TotoalTime = moment.utc(counter * 1000).format('HH:mm:ss');
 
   const startForegroundService = async () => {
     if (Platform.Version >= 26) {
@@ -244,12 +247,12 @@ const Start = () => {
       });
     }
     setIsActive(true);
-    console.log(isActive);
+    console.log('Gps final Data', number);
     return VIForegroundService.startService({
       channelId: 'locationChannel',
       id: 420,
       title: appConfig.displayName,
-      text: `App i reconding ...`,
+      text: `App is recording ...`,
       icon: 'ic_launcher',
     });
   };
@@ -258,46 +261,24 @@ const Start = () => {
     VIForegroundService.stopService().catch(err => err);
   }, []);
 
-  useEffect(() => {
-    let intervalId;
-
-    if (isActive) {
-      intervalId = setInterval(() => {
-        const secondCounter = counter % 60;
-        const minuteCounter = Math.floor(counter / 60);
-        const minuteHour = Math.floor(counter / 60 / 60);
-        let computedSHour =
-          String(minuteHour).length === 1 ? `0${minuteHour}` : minuteHour;
-        let computedSecond =
-          String(secondCounter).length === 1
-            ? `0${secondCounter}`
-            : secondCounter;
-        let computedMinute =
-          String(minuteCounter).length === 1
-            ? `0${minuteCounter}`
-            : minuteCounter;
-
-        setSecond(computedSecond);
-        setMinute(computedMinute);
-        setHour(computedSHour);
-        const timeUp = `${minuteHour}:${computedMinute}:${computedSecond}`;
-        totalTime(timeUp);
-        setStart('stop');
-
-        setCounter(counter => counter + 1);
-      }, 1000);
-    }
-
-    return () => clearInterval(intervalId);
-  }, [isActive, counter]);
+  const onStart = () => {
+    setCounter(0);
+    interval.current = BackgroundTimer.setInterval(() => {
+      setCounter(counter => counter + 1);
+    }, 1000);
+  };
 
   function stopTimer() {
     setIsActive(false);
     setStart('stoptrip');
+    BackgroundTimer.clearInterval(interval.current);
+    interval.current = null;
   }
   const startService = () => {
     setIsActive(!isActive);
     getLocationUpdates();
+    setStart('stop');
+    onStart();
   };
 
   const StartAlert = () =>
